@@ -1,0 +1,6 @@
+.env
+*.pyc
+*.pyo
+__pycache__/
+audio/*
+google-credentials.json
