@@ -4,3 +4,5 @@
 __pycache__/
 audio/*
 google-credentials.json
+*.pem
+sample_alfatihah.json

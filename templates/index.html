@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>alquran-recognition-server</title>
+  </head>
+  <body>
+    <form action="/upload" id="form">
+      <input type="file" name="file" />
+      <input type="submit" value="Upload" />
+    </form>
+    <button id="get_response">get_response</button>
+    <script>
+      const form = document.getElementById("form");
+      form.addEventListener("submit", function (e) {
+        e.preventDefault();
+        const formData = new FormData(form);
+        const xhr = new XMLHttpRequest();
+        xhr.open("POST", "/upload");
+        xhr.send(formData);
+
+        xhr.onload = function () {
+          console.log(xhr.responseText);
+        };
+      });
+
+      const get_response = document.getElementById("get_response");
+      get_response.addEventListener("click", function () {
+        fetch("/get_response?filename=WhatsApp_Ptt_2022-06-17_at_00.10.30.ogg")
+          .then(function (response) {
+            return response.json();
+          })
+          .then(function (data) {
+            console.log(data);
+          });
+      });
+    </script>
+  </body>
+</html>
