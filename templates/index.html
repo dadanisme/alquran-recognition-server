@@ -28,7 +28,9 @@
 
       const get_response = document.getElementById("get_response");
       get_response.addEventListener("click", function () {
-        fetch("/get_response?filename=WhatsApp_Ptt_2022-06-17_at_00.10.30.ogg")
+        fetch(
+          "/get_response?filename=WhatsApp_Ptt_2022-06-17_at_00.10.30.flac&sample_rate_hertz=48000"
+        )
           .then(function (response) {
             return response.json();
           })

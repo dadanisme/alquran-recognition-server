@@ -7,3 +7,5 @@ google-credentials.json
 *.pem
 sample_alfatihah.json
 test.py
+ayat_details.json
+surah_details.json

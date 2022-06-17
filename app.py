@@ -23,17 +23,51 @@ def upload():
     'filename': file.filename.replace(' ', '_')
   }
 
+@app.route('/upload_blob', methods=['POST', 'GET'])
+def upload_blob():
+  filename = request.args.get('filename')
+  blob = request.data
+  with open('./audio/' + filename + '.wav', 'ab') as f:
+    f.write(blob)
+  
+  import os
+  file_size = os.path.getsize('./audio/' + filename + '.wav')
+  return {
+    'status': 'success',
+    'filename': filename + '.wav',
+    'filesize': file_size
+  }
+    
+  path = './audio/' + blob.filename.replace(' ', '_')
+
+
+  return {
+    'status': 'success',
+    'result': path
+  }
+
+
 @app.route('/get_response', methods=['GET', 'POST'])
 def get_response():
-  print('getting response...')
-  filename = request.args.get('filename')
-  file_path = './audio/' + filename
-  print('converting to flac...')
-  flac_file = convert_to_flac(file_path)
-  print('getting annotation...')
-  result = transcribe_file(flac_file['filename'], flac_file['sample_rate_hertz'])
-  print(result)
-  return {
+    print('getting response...')
+    filename = request.args.get('filename')
+    sample_rate_hertz = int(request.args.get('sample_rate_hertz'))
+    file_path ='./audio/' + filename
+    result = transcribe_file(file_path, sample_rate_hertz)
+
+    response = {
+      'status': 'success',
+      'result': result
+    }
+    return response
+
+@app.route('/predict', methods=['GET', 'POST'])
+def predict_ayat():
+  print('predicting ayat...')
+  text = request.args.get('text')
+  result = search_in_ayat(text)
+  response = {
     'status': 'success',
     'result': result
   }
+  return response

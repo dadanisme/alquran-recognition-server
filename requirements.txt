@@ -1,5 +1,8 @@
 Flask==2.1.2
 Flask-Cors==3.0.10
 google-cloud-speech==2.14.1
+google-cloud-translate==2.0.1
+lunr==0.6.2
+pyopenssl==22.0.0
 python-dotenv==0.20.0
 requests==2.21.0
