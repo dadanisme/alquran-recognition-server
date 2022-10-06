@@ -1,7 +1,7 @@
 import os
 
 # set environment variable for google cloud platform
-os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = "./google-credentials.json"
+os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = "/home/alquranrecognition/alquran/google-credentials.json"
 
 def translate_text(target, text):
 	"""Translates text into the target language.
@@ -35,9 +35,10 @@ def transcribe_file(speech_file):
 	Note that transcription is limited to a 60 seconds audio file.
 	Use a GCS file for audio longer than 1 minute.
 	"""
-	audio = speech.RecognitionAudio(content=content) 
+	audio = speech.RecognitionAudio(content=content)
 
 	# get sample rate
+	import scipy
 	from scipy.io import wavfile
 	sample_rate, data = wavfile.read(speech_file)
 
@@ -66,22 +67,22 @@ def transcribe_file(speech_file):
 			"translated": translated['translatedText'],
 			"confidence": result.alternatives[0].confidence
 		})
-    
+
 	# delete file after process
 	import os
 	os.remove(speech_file)
 	return results
-    
+
 def search_in_ayat(text):
 	# open ayat_details.json
 	import json
-	with open('./train/ayat_details.json') as f:
+	with open('/home/alquranrecognition/alquran/ayat_details.json') as f:
 		ayat_details = json.load(f)
-	
+
 	from lunr import lunr
 	idx = lunr(ref='index', fields=['idn', 'translated'], documents=ayat_details)
 	result = idx.search(text)[0:10]
-	
+
 	response = []
 	for r in result:
 		print(r['ref'])

@@ -3,7 +3,7 @@ from flask import Flask, render_template, request, redirect, url_for, send_from_
 from flask_cors import CORS
 
 app = Flask(__name__)
-CORS(app) 
+CORS(app)
 
 if __name__ == '__main__':
   app.run('127.0.0.1', 5600, debug=True, ssl_context=('cert.pem', 'key.pem'))
@@ -15,8 +15,8 @@ def index():
 @app.route('/upload', methods=['POST', 'GET'])
 def upload():
   file = request.files['file']
-  file.save('./audio/' + file.filename.replace(' ', '_'))
-  path = './audio/' + file.filename.replace(' ', '_')
+  file.save('/home/alquranrecognition/alquran/audio/' + file.filename.replace(' ', '_'))
+  path = '/home/alquranrecognition/alquran/audio/' + file.filename.replace(' ', '_')
 
   return {
     'status': 'success',
@@ -27,18 +27,18 @@ def upload():
 def upload_blob():
   filename = request.args.get('filename')
   blob = request.data
-  with open('./audio/' + filename + '.wav', 'ab') as f:
+  with open('/home/alquranrecognition/alquran/audio/' + filename + '.wav', 'ab') as f:
     f.write(blob)
-  
+
   import os
-  file_size = os.path.getsize('./audio/' + filename + '.wav')
+  file_size = os.path.getsize('/home/alquranrecognition/alquran/audio/' + filename + '.wav')
   return {
     'status': 'success',
     'filename': filename + '.wav',
     'filesize': file_size
   }
-    
-  path = './audio/' + blob.filename.replace(' ', '_')
+
+  path = '/home/alquranrecognition/alquran/audio/' + blob.filename.replace(' ', '_')
 
 
   return {
@@ -51,7 +51,7 @@ def upload_blob():
 def get_response():
     print('getting response...')
     filename = request.args.get('filename')
-    file_path ='./audio/' + filename
+    file_path ='/home/alquranrecognition/alquran/audio/' + filename
     result = transcribe_file(file_path)
 
     response = {

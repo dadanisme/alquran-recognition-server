@@ -6,3 +6,4 @@ lunr==0.6.2
 pyopenssl==22.0.0
 python-dotenv==0.20.0
 requests==2.21.0
+scipy==1.8.1
